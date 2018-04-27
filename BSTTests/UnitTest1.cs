@@ -1,5 +1,4 @@
-﻿using System;
-using DiscussionWeek5;
+﻿using DiscussionWeek5;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BSTTests
@@ -9,84 +8,111 @@ namespace BSTTests
     {
         [TestMethod]
         public void MaxTest () {
-            BinarySearchTreeNode t = new BinarySearchTreeNode(5,
-                new BinarySearchTreeNode(3, new BinarySearchTreeNode(1), new BinarySearchTreeNode(4)),
-                new BinarySearchTreeNode(9, new BinarySearchTreeNode(6), new BinarySearchTreeNode(11, null, new BinarySearchTreeNode(99))));
-
-            Assert.AreEqual(BinarySearchTreeNode.maximum(t).Value, 99);
+            var bst =
+                new BST(5,
+                    new BST(3, new BST(1), new BST(4)),
+                    new BST(9,
+                        new BST(6),
+                        new BST(11, null, new BST(99))));
+            Assert.AreEqual(BST.Maximum(bst).Value, 99);
         }
 
         [TestMethod]
         public void MaxEqualsTest () {
-            // Test with two equal nodes corresponding to the same maximum.
-            BinarySearchTreeNode t = new BinarySearchTreeNode(5,
-                new BinarySearchTreeNode(3, new BinarySearchTreeNode(1), new BinarySearchTreeNode(4)),
-                new BinarySearchTreeNode(9, new BinarySearchTreeNode(6), new BinarySearchTreeNode(11, null,
-                    new BinarySearchTreeNode(99, new BinarySearchTreeNode(99), null))));
+            var bst =
+                new BST(5,
+                    new BST(3, new BST(1), new BST(4)),
+                    new BST(9,
+                        new BST(6),
+                        new BST(11,
+                            null,
+                            new BST(99, new BST(99), null))));
 
-            Assert.AreEqual(BinarySearchTreeNode.maximum(t).Value, 99);
+            Assert.AreEqual(BST.Maximum(bst).Value, 99);
         }
 
         [TestMethod]
         public void MinTest () {
-            BinarySearchTreeNode t = new BinarySearchTreeNode(5,
-                new BinarySearchTreeNode(3, new BinarySearchTreeNode(1), new BinarySearchTreeNode(4)),
-                new BinarySearchTreeNode(9, new BinarySearchTreeNode(6), new BinarySearchTreeNode(11, null,
-                    new BinarySearchTreeNode(99, new BinarySearchTreeNode(99), null))));
+            var bst =
+                new BST(5,
+                    new BST(3, new BST(1), new BST(4)),
+                    new BST(9,
+                        new BST(6),
+                        new BST(11,
+                            null,
+                            new BST(99, new BST(99), null))));
 
-            Assert.AreEqual(BinarySearchTreeNode.minimum(t).Value, 1);
+            Assert.AreEqual(BST.Minimum(bst).Value, 1);
         }
 
         [TestMethod]
         public void MinEqualsTest () {
             // Test with two equal nodes corresponding to the same maximum.
-            BinarySearchTreeNode t = new BinarySearchTreeNode(5,
-                new BinarySearchTreeNode(3, new BinarySearchTreeNode(1,
-                    new BinarySearchTreeNode(1), null), new BinarySearchTreeNode(4)),
-                new BinarySearchTreeNode(9, new BinarySearchTreeNode(6), new BinarySearchTreeNode(11, null,
-                    new BinarySearchTreeNode(99, new BinarySearchTreeNode(99), null))));
+            BST bst =
+                new BST(5,
+                    new BST(3,
+                        new BST(1, new BST(1), null),
+                        new BST(4)),
+                    new BST(9,
+                        new BST(6),
+                        new BST(11,
+                            null,
+                            new BST(99, new BST(99), null))));
 
-            Assert.AreEqual(BinarySearchTreeNode.minimum(t).Value, 1);
+            Assert.AreEqual(BST.Minimum(bst).Value, 1);
         }
 
         [TestMethod]
         public void ContainsTest () {
-            BinarySearchTreeNode t = new BinarySearchTreeNode(5,
-                new BinarySearchTreeNode(3, new BinarySearchTreeNode(1,
-                    new BinarySearchTreeNode(1), null), new BinarySearchTreeNode(4)),
-                new BinarySearchTreeNode(9, new BinarySearchTreeNode(6), new BinarySearchTreeNode(11, null,
-                    new BinarySearchTreeNode(99, new BinarySearchTreeNode(99), null))));
+            var bst =
+                new BST(5,
+                    new BST(3,
+                        new BST(1, new BST(1), null),
+                        new BST(4)),
+                    new BST(9,
+                        new BST(6),
+                        new BST(11,
+                            null,
+                            new BST(99, new BST(99), null))));
 
-            Assert.AreEqual(BinarySearchTreeNode.contains(t, 5), true);
-            Assert.AreEqual(BinarySearchTreeNode.contains(t, 1), true);
-            Assert.AreEqual(BinarySearchTreeNode.contains(t, 13), false);
+            Assert.IsTrue(BST.Contains(bst, 5));
+            Assert.IsTrue(BST.Contains(bst, 1));
+            Assert.IsFalse(BST.Contains(bst, 13));
         }
 
         [TestMethod]
         public void ValidTest () {
-            BinarySearchTreeNode valid = new BinarySearchTreeNode(5,
-                new BinarySearchTreeNode(3, new BinarySearchTreeNode(1,
-                    new BinarySearchTreeNode(1), null), new BinarySearchTreeNode(4)),
-                new BinarySearchTreeNode(9, new BinarySearchTreeNode(6), new BinarySearchTreeNode(11, null,
-                    new BinarySearchTreeNode(99, new BinarySearchTreeNode(99), null))));
+            var valid =
+                new BST(5,
+                    new BST(3,
+                        new BST(1, new BST(1), null),
+                        new BST(4)),
+                    new BST(9,
+                        new BST(6),
+                        new BST(11,
+                            null,
+                            new BST(99, new BST(99), null))));
 
-            Assert.AreEqual(BinarySearchTreeNode.valid(valid), true);
+            Assert.IsTrue(BST.Valid(valid));
+        }
 
-            BinarySearchTreeNode invalid = new BinarySearchTreeNode(5,
-                new BinarySearchTreeNode(3,
-                  new BinarySearchTreeNode(9), // 9 cannot be a left child of 3.
-                  new BinarySearchTreeNode(4)),
-                new BinarySearchTreeNode(9,
-                  new BinarySearchTreeNode(6),
-                  new BinarySearchTreeNode(11,
-                    null,
-                    new BinarySearchTreeNode(99))));
+        [TestMethod]
+        public void InvalidTestLeft () {
+            var invalid =
+                new BST(5,
+                    new BST(3, new BST(9), new BST(4)),
+                    new BST(9,
+                        new BST(6),
+                        new BST(11, null, new BST(99))));
 
-            Assert.AreEqual(BinarySearchTreeNode.valid(invalid), false);
+            Assert.IsFalse(BST.Valid(invalid));
+        }
 
+        [TestMethod]
+        public void InvalidTestRight () {
             // Right children must be strictly greater than the current node.
-            BinarySearchTreeNode invalidSimple = new BinarySearchTreeNode(5, new BinarySearchTreeNode(3), new BinarySearchTreeNode(5));
-            Assert.AreEqual(BinarySearchTreeNode.valid(invalidSimple), false);
+            var invalidSimple = new BST(5, new BST(3), new BST(5));
+            Assert.IsFalse(BST.Valid(invalidSimple));
         }
     }
 }
