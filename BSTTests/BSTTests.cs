@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace BSTTests
 {
     [TestClass]
-    public class UnitTest1
+    public class BSTTests
     {
         [TestMethod]
         public void MaxTest () {
