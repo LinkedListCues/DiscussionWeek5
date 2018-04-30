@@ -48,7 +48,7 @@ namespace BSTTests
         [TestMethod]
         public void MinEqualsTest () {
             // Test with two equal nodes corresponding to the same maximum.
-            BST bst =
+            var bst =
                 new BST(5,
                     new BST(3,
                         new BST(1, new BST(1), null),
