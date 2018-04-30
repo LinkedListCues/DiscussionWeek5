@@ -1,4 +1,6 @@
-﻿namespace DiscussionWeek5
+﻿using System;
+
+namespace DiscussionWeek5
 {
     /// <summary>
     /// A bog-standard binary search tree.
@@ -27,46 +29,28 @@
         /// Returns the minimum node in a BST.
         /// </summary>
         public static BST Minimum (BST root) {
-            while (true) {
-                if (root.Left == null) { return root; }
-                root = root.Left;
-            }
+            throw new NotImplementedException();
         }
 
         /// <summary>
         /// Returns the maximum node in a given BST.
         /// </summary>
         public static BST Maximum (BST root) {
-            while (true) {
-                if (root.Right == null) { return root; }
-                root = root.Right;
-            }
+            throw new NotImplementedException();
         }
 
         /// <summary>
         /// Returns whether or not the query is contained within the BST.
         /// </summary>
         public static bool Contains (BST root, int query) {
-            if (root.Value == query) { return true; }
-
-            if (root.Value > query) {
-                return root.Left != null && Contains(root.Left, query);
-            }
-
-            return root.Right != null && Contains(root.Right, query);
+            throw new NotImplementedException();
         }
 
         /// <summary>
         /// Is the given BST valid? I.e., does it satisfy the binary search tree property?
         /// </summary>
         public static bool Valid (BST root) {
-            if (root.Left != null
-                && (root.Left.Value > root.Value || !Valid(root.Left))) {
-                return false;
-            }
-
-            if (root.Right == null) { return true; }
-            return root.Right.Value > root.Value && Valid(root.Right);
+            throw new NotImplementedException();
         }
     }
 }
